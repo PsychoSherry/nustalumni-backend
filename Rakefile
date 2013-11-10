@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TwitterFetch::Application.load_tasks
+NustAlumni::Application.load_tasks

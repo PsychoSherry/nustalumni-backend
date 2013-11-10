@@ -1,7 +1,7 @@
 Devise.setup do |config|
   require 'devise/orm/mongoid'
 
-  config.mailer_sender = "noreply@TwitterFetch.co"
+  config.mailer_sender = "noreply@NustAlumni.co"
   config.case_insensitive_keys = [ :email ]
   config.strip_whitespace_keys = [ :email ]
   config.skip_session_storage = [:http_auth]

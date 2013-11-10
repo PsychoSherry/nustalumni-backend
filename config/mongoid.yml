@@ -1,7 +1,7 @@
 development:
   sessions:
     default:
-      database: TwitterFetch_development
+      database: NustAlumni_development
       hosts:
         - localhost:27017
       options:
@@ -15,7 +15,7 @@ development:
 test:
   sessions:
     default:
-      database: TwitterFetch_test
+      database: NustAlumni_test
       hosts:
         - localhost:27017
       options:
