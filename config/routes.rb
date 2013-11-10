@@ -1,11 +1,20 @@
 NustAlumni::Application.routes.draw do
-  root :to  => 'application#comingsoon'
-  match '/404/'					=> 'application#not_found',  :via => :GET
-  match '/500/'                 => 'application#exception',  :via => :GET
+  devise_for :users, :skip => [:registrations, :sessions, :passwords]
 
-  # namespace :parse, defaults: {format: 'json'} do
-  # 	match '/user/:user/'							=> 'fetch#user',	    :via => :GET
-  # 	match '/user/:user/again'						=> 'fetch#useragain',	:via => :GET
-  # 	match '/user/:user/tweets/from/:from/to/:to/'	=> 'fetch#tweets',      :via => :GET
-  end
+  root :to                             => 'application#comingsoon'
+  match '/404/'                        => 'application#not_found',  :via => :GET
+  match '/500/'                        => 'application#exception',  :via => :GET
+
+  namespace :api, defaults: {format: 'json'} do
+    root :to                           => 'api#null'
+    
+    namespace :v1 do
+      root :to                         => 'v1#index'
+      match '/me/valid/'               => 'user#validsession',      :via => :GET
+
+      match '/user/new/'			   => 'user#new',	 		    :via => :POST
+      match '/user/logout/'            => 'user#logout',            :via => :POST
+      match '/user/login/'             => 'user#login',             :via => :POST
+    end
+  end 
 end
