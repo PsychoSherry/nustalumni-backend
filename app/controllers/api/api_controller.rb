@@ -1,4 +1,4 @@
-class ApiController < ApplicationController
+class Api::ApiController < ApplicationController
 	respond_to :json#, :xml
 
 	def null

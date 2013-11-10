@@ -1,4 +1,4 @@
-class Api::V1Controller < ApiController
+class Api::V1::V1Controller < Api::ApiController
 
 	def index
 		respond_with valid: :true

@@ -1,11 +1,12 @@
-class Api::V1::UserController < Api::V1Controller
+class Api::V1::UserController < Api::V1::V1Controller
 	before_filter :verify_user_token!, :except => [:new, :login, :validsession]
 
 	def new
-		if params[:email].present? && params[:password].present?]
+		if params[:email].present? && params[:password].present? && params[:name].present?
 			@user = User.where(:email => params[:email])
 			if @user.count == 0
 				@user = User.create!(
+					:name     => params[:name],
 					:email 	  => params[:email],
 					:password => params[:password]
 				)
@@ -27,7 +28,7 @@ class Api::V1::UserController < Api::V1Controller
 	end
 
 	def login
-		if params[:email].present? && params[:password].present?]
+		if params[:email].present? && params[:password].present?
 			@user = User.where(:email => params[:email])
 			if @user.count == 0
 				render_404 'user not found'
@@ -54,9 +55,9 @@ class Api::V1::UserController < Api::V1Controller
 
 	def validsession
 		if user_signed_in?
-			respond_with valid: :true
+			render json: { valid: true }
 		else
-			respond_with valid: :false
+			render json: { valid: false }
 		end
 	end
 
@@ -65,10 +66,14 @@ class Api::V1::UserController < Api::V1Controller
             current_user.authentication_token=nil
             current_user.save
             sign_out current_user
-			respond_with status: 'successful'
+			render json: {
+				status: 'successful'
+			}
         else
-			respond_with status: 'failed',
-						 error:  'user not signed in'
+			render json: {
+				status: 'failed',
+				error:  'user not signed in'
+			}
         end
 	end
 end
