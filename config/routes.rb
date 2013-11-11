@@ -12,9 +12,12 @@ NustAlumni::Application.routes.draw do
       root :to                         => 'v1#index'
       match '/me/valid/'               => 'user#validsession',      :via => :GET
 
-      match '/user/new/'			   => 'user#new',	 		    :via => :POST
+      match '/user/new/'               => 'user#new',               :via => :POST
       match '/user/logout/'            => 'user#logout',            :via => :POST
       match '/user/login/'             => 'user#login',             :via => :POST
+
+      match '/data/home/'              => 'data#home',              :via => :GET
+      match '/data/faq/'               => 'data#faq',               :via => :GET
     end
   end 
 end
