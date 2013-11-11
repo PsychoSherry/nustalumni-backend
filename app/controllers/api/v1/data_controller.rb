@@ -15,4 +15,35 @@ class Api::V1::DataController < Api::V1::V1Controller
 	def faq
 		render json: DataFaq.all.to_json(:except => [:_id])
 	end
+
+	def people
+		render json: {
+			"type_0" => 
+				User.where(:professional_status => 0)
+				.only([:name, :email, :discipline])
+				.map { |n| {
+					:name       => n.name,
+					:email 	    => n.email,
+					:discipline => n.discipline
+				}},
+
+			"type_1" => 
+				User.where(:professional_status => 1)
+				.only([:name, :email, :discipline])
+				.map { |n| {
+					:name       => n.name,
+					:email 	    => n.email,
+					:discipline => n.discipline
+				}},
+
+			"type_2" => 
+				User.where(:professional_status => 2)
+				.only([:name, :email, :discipline])
+				.map { |n| {
+					:name       => n.name,
+					:email 	    => n.email,
+					:discipline => n.discipline
+				}}
+		}
+	end
 end

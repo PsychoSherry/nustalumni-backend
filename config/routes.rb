@@ -10,6 +10,9 @@ NustAlumni::Application.routes.draw do
     
     namespace :v1 do
       root :to                         => 'v1#index'
+
+      match '/me/'                     => 'user#show',              :via => :GET
+      match '/me/'                     => 'user#update',            :via => :POST
       match '/me/valid/'               => 'user#validsession',      :via => :GET
 
       match '/user/new/'               => 'user#new',               :via => :POST
@@ -18,6 +21,7 @@ NustAlumni::Application.routes.draw do
 
       match '/data/home/'              => 'data#home',              :via => :GET
       match '/data/faq/'               => 'data#faq',               :via => :GET
+      match '/data/people/'            => 'data#people',            :via => :GET
     end
   end 
 end

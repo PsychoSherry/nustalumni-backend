@@ -61,6 +61,34 @@ class Api::V1::UserController < Api::V1::V1Controller
 		end
 	end
 
+	def show
+		render json: current_user
+	end
+
+	def update
+		@user = User.find(current_user.id)
+
+
+		if @user.update_attributes(
+			:name 		 		 => get_params(@user, :name),
+			:campus 	 		 => get_params(@user, :campus),
+			:discipline  		 => get_params(@user, :discipline),
+			:job_company 		 => get_params(@user, :job_company),
+			:job_position		 => get_params(@user, :job_position),
+			:course 	 		 => get_params(@user, :course),
+			:course_year 		 => get_params(@user, :course_year).to_i,
+			:graduate			 => get_params(@user, :graduate).to_i,
+			:professional_status => get_params(@user, :professional_status).to_i
+		)
+			render json: {
+				status: 'successful'
+			}
+		else
+			render_422 @user.errors.full_messages.first
+		end
+
+	end
+
 	def logout
         if user_signed_in?
             current_user.authentication_token=nil
@@ -75,5 +103,17 @@ class Api::V1::UserController < Api::V1::V1Controller
 				error:  'user not signed in'
 			}
         end
+	end
+
+	def get_params user, parakey
+		if params[parakey].blank?
+			x = user[parakey]
+			if x.is_a? Boolean
+				x = (x ? 1 : 0)
+			end
+			return x
+		else
+			return params[parakey]
+		end
 	end
 end

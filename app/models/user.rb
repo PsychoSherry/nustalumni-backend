@@ -1,19 +1,19 @@
 class User
   include Mongoid::Document
 
-  field :name,                :type => String, :default => ""
-  field :email,               :type => String, :default => ""
-  field :encrypted_password,  :type => String, :default => ""
+  field :name,                :type => String,  :default => ""
+  field :email,               :type => String,  :default => ""
+  field :encrypted_password,  :type => String,  :default => ""
 
-  field :graduate,            :type => Boolean
-  field :course_year,         :type => Integer
-  field :course,              :type => String
-  field :campus,              :type => String
-  field :discipline,          :type => String
-  field :job_position,        :type => String
-  field :job_company,         :type => String      
+  field :course,              :type => String,  :default => ""
+  field :campus,              :type => String,  :default => ""
+  field :discipline,          :type => String,  :default => ""
+  field :job_position,        :type => String,  :default => ""
+  field :job_company,         :type => String,  :default => ""
 
-  field :professional_status, :type => Integer
+  field :graduate,            :type => Boolean, :default => false
+  field :course_year,         :type => Integer, :default => 0
+  field :professional_status, :type => Integer, :default => 0
   # 0 => looking for new employment opportunities
   # 1 => seeking to employ fresh graduates
   # 2 => looking to connect with decision makers       
