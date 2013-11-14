@@ -2,6 +2,9 @@ class User
   include Mongoid::Document
 
   field :name,                :type => String,  :default => ""
+  field :name_first,          :type => String,  :default => ""
+  field :name_last,           :type => String,  :default => ""
+
   field :email,               :type => String,  :default => ""
   field :encrypted_password,  :type => String,  :default => ""
 
@@ -20,6 +23,14 @@ class User
 
   validates :name,     :presence => true
   validates :email,    :presence => true, :uniqueness => true
+
+  before_save :save_name
+
+  def save_name
+    if not self.name_first.blank?
+      self.name = (self.name_first + ' ' + self.name_last).gsub(/\s+/, ' ')
+    end 
+  end
 
 
 

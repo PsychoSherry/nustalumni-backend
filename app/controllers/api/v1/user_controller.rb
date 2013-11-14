@@ -62,15 +62,24 @@ class Api::V1::UserController < Api::V1::V1Controller
 	end
 
 	def show
-		render json: current_user
+		if params[:email].present?
+			@user = User.where(:email => params[:email])
+			if @user.count == 0
+				render_404
+			else
+				render json: @user.first
+			end
+		else
+			render json: current_user
+		end
 	end
 
 	def update
 		@user = User.find(current_user.id)
 
-
 		if @user.update_attributes(
-			:name 		 		 => get_params(@user, :name),
+			:name_first 		 => get_params(@user, :name_first),
+			:name_last 	 		 => get_params(@user, :name_last),
 			:campus 	 		 => get_params(@user, :campus),
 			:discipline  		 => get_params(@user, :discipline),
 			:job_company 		 => get_params(@user, :job_company),
@@ -86,7 +95,28 @@ class Api::V1::UserController < Api::V1::V1Controller
 		else
 			render_422 @user.errors.full_messages.first
 		end
+	end
 
+	def password
+		if params[:password_old].present? && params[:password_new].present?
+			resource = User.find_for_authentication(:email => current_user.email)
+			
+			if resource.valid_password? params[:password_old]
+				resource.update_attributes :password => params[:password_new]
+				resource.reset_authentication_token!
+				sign_in :user, resource
+
+				render json: {
+					status: 'successful',
+					auth_token: resource.authentication_token
+				}
+			else
+				render_401 'invalid password'
+			end
+
+		else
+			render_400
+		end
 	end
 
 	def logout

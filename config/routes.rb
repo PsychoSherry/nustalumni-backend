@@ -11,13 +11,13 @@ NustAlumni::Application.routes.draw do
     namespace :v1 do
       root :to                         => 'v1#index'
 
-      match '/me/'                     => 'user#show',              :via => :GET
-      match '/me/'                     => 'user#update',            :via => :POST
-      match '/me/valid/'               => 'user#validsession',      :via => :GET
-
+      match '/user/'                   => 'user#show',              :via => :GET
+      match '/user/'                   => 'user#update',            :via => :POST
+      match '/user/me/'                => 'user#validsession',      :via => :GET
       match '/user/new/'               => 'user#new',               :via => :POST
       match '/user/logout/'            => 'user#logout',            :via => :POST
       match '/user/login/'             => 'user#login',             :via => :POST
+      match '/user/password/'          => 'user#password',          :via => :POST
 
       match '/data/home/'              => 'data#home',              :via => :GET
       match '/data/faq/'               => 'data#faq',               :via => :GET
