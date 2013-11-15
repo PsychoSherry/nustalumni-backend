@@ -16,6 +16,16 @@ class Api::V1::DataController < Api::V1::V1Controller
 		render json: DataFaq.all.to_json(:except => [:_id])
 	end
 
+	def news
+		render json: DataNews.all.map { |n| {
+				:title   => n.title,
+				:image   => n.image,
+				:date    => n.date.to_formatted_s(:long),
+				:content => n.content
+			}
+		}
+	end
+
 	def people
 		render json: {
 			"type_0" => 

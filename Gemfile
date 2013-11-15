@@ -11,5 +11,6 @@ gem 'mongoid'
 gem 'devise'
 gem 'delayed_job_mongoid'
 
+gem 'nokogiri'
 gem 'turbolinks'
 gem 'unicorn'

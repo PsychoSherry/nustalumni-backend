@@ -5,6 +5,9 @@ NustAlumni::Application.routes.draw do
   match '/404/'                        => 'application#not_found',  :via => :GET
   match '/500/'                        => 'application#exception',  :via => :GET
 
+  match '/admin/news/add/'             => 'admin#news_index',       :via => :GET
+  match '/admin/news/add/'             => 'admin#news_add',         :via => :POST
+
   namespace :api, defaults: {format: 'json'} do
     root :to                           => 'api#null'
     
@@ -20,6 +23,7 @@ NustAlumni::Application.routes.draw do
       match '/user/password/'          => 'user#password',          :via => :POST
 
       match '/data/home/'              => 'data#home',              :via => :GET
+      match '/data/news/'              => 'data#news',              :via => :GET
       match '/data/faq/'               => 'data#faq',               :via => :GET
       match '/data/people/'            => 'data#people',            :via => :GET
     end
