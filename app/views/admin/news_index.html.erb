@@ -1,5 +1,6 @@
 <%= form_tag :action => 'news_add' do %>
 	<%= text_field_tag('title', nil, :placeholder => "News Title") %><br/>
+	<%= text_field_tag('url', nil, :placeholder => "Article URL") %><br/>
 	<%= text_field_tag('image', nil, :placeholder => "Image") %><br/>
 	<%= text_field_tag('date', nil, :placeholder => "Date (DD-MM-YYYY)") %><br/>
 	<%= text_area_tag('content', nil, :placeholder => "Content") %><br/>

@@ -17,9 +17,10 @@ class Api::V1::DataController < Api::V1::V1Controller
 	end
 
 	def news
-		render json: DataNews.all.map { |n| {
+		render json: DataNews.all.reverse.map { |n| {
 				:title   => n.title,
 				:image   => n.image,
+				:url	 => n.url,
 				:date    => n.date.to_formatted_s(:long),
 				:content => n.content
 			}

@@ -5,7 +5,7 @@ class AdminController < ApplicationController
 
 	def news_add
 		@status = "Failed"
-		if params[:title].present? && params[:content].present? && params[:date].present?
+		if params[:title].present? && params[:content].present? && params[:date].present? && params[:url].present?
 			if params[:image].blank?
 				@image = "http://www.nust.edu.pk/News/PublishingImages/m8.jpg"
 			else
@@ -15,6 +15,7 @@ class AdminController < ApplicationController
 			DataNews.create(
 				:title   => params[:title],
 				:content => params[:content],
+				:url	 => params[:url],
 				:date    => Date.parse(params[:date]),
 				:image   => @image
 			)
