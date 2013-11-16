@@ -27,7 +27,7 @@ class User
   validates :name,     :presence => true
   validates :email,    :presence => true, :uniqueness => true
 
-  before_save :calculate_date
+  before_save :calculate_data
 
   def calculate_data
     # Strip name of multiple spaces
