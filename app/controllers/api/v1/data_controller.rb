@@ -35,6 +35,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
+					:image 		=> n.image,
 					:discipline => n.discipline
 				}},
 
@@ -44,6 +45,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
+					:image 		=> n.image,
 					:discipline => n.discipline
 				}},
 
@@ -53,6 +55,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
+					:image 		=> n.image,
 					:discipline => n.discipline
 				}}
 		}

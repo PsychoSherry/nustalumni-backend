@@ -1,10 +1,12 @@
 class User
   include Mongoid::Document
+  require 'digest/md5'
 
   field :name,                :type => String,  :default => ""
   field :name_first,          :type => String,  :default => ""
   field :name_last,           :type => String,  :default => ""
 
+  field :image,               :type => String,  :default => ""
   field :email,               :type => String,  :default => ""
   field :encrypted_password,  :type => String,  :default => ""
 
@@ -17,6 +19,7 @@ class User
   field :graduate,            :type => Boolean, :default => false
   field :course_year,         :type => Integer, :default => 0
   field :professional_status, :type => Integer, :default => 0
+
   # 0 => looking for new employment opportunities
   # 1 => seeking to employ fresh graduates
   # 2 => looking to connect with decision makers       
@@ -24,12 +27,19 @@ class User
   validates :name,     :presence => true
   validates :email,    :presence => true, :uniqueness => true
 
-  before_save :save_name
+  before_save :calculate_date
 
-  def save_name
+  def calculate_data
+    # Strip name of multiple spaces
     if not self.name_first.blank?
       self.name = (self.name_first + ' ' + self.name_last).gsub(/\s+/, ' ')
     end 
+
+    # Calculate Image Gravatar
+    self.email = self.email.downcase.delete(' ')
+
+    hash = Digest::MD5.hexdigest(self.email)
+    self.image = "http://www.gravatar.com/avatar/#{hash}?d=mm&r=pg&s=80"
   end
 
 
