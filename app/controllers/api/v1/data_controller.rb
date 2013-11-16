@@ -31,7 +31,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 		render json: {
 			"type_0" => 
 				User.where(:professional_status => 0)
-				.only([:name, :email, :discipline])
+				.only([:name, :email, :discipline, :image])
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
@@ -41,7 +41,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 
 			"type_1" => 
 				User.where(:professional_status => 1)
-				.only([:name, :email, :discipline])
+				.only([:name, :email, :discipline, :image])
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
@@ -51,7 +51,7 @@ class Api::V1::DataController < Api::V1::V1Controller
 
 			"type_2" => 
 				User.where(:professional_status => 2)
-				.only([:name, :email, :discipline])
+				.only([:name, :email, :discipline, :image])
 				.map { |n| {
 					:name       => n.name,
 					:email 	    => n.email,
