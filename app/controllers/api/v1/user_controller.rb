@@ -119,6 +119,29 @@ class Api::V1::UserController < Api::V1::V1Controller
 		end
 	end
 
+	def volunteer
+		if params[:volunteer].present?
+			@user = User.find(current_user.id)
+			@user.volunteer = params[:volunteer].to_i
+
+			if @user.save
+				render json: {
+					status: 'successful'
+				}
+			else
+				render_422 @user.errors.full_messages.first
+			end
+		else
+			render_400
+		end
+	end
+
+	def is_volunteer
+		render json: {
+			volunteer: current_user.volunteer 
+		}
+	end
+
 	def logout
         if user_signed_in?
             current_user.authentication_token=nil

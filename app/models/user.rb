@@ -16,6 +16,7 @@ class User
   field :job_position,        :type => String,  :default => ""
   field :job_company,         :type => String,  :default => ""
 
+  field :volunteer,           :type => Boolean, :default => false
   field :graduate,            :type => Boolean, :default => false
   field :course_year,         :type => Integer, :default => 0
   field :professional_status, :type => Integer, :default => 0

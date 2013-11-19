@@ -1,4 +1,6 @@
 class Api::V1::DataController < Api::V1::V1Controller
+	before_filter :verify_user_token!
+
 	def home
 		if DataMain.count == 0
 			render_404 "content not found"
@@ -24,6 +26,23 @@ class Api::V1::DataController < Api::V1::V1Controller
 				:date    => n.date.to_formatted_s(:long),
 				:content => n.content
 			}
+		}
+	end
+
+	def volunteers
+		render json: {
+			:you		 => current_user.volunteer,
+			:title		 => DataMentor.last.title,
+			:content	 => DataMentor.last.content,
+			:volunteers  => 
+				User.where(:volunteer => true)
+				.only([:name, :email, :discipline, :image])
+				.map { |n| {
+					:name       => n.name,
+					:email 	    => n.email,
+					:image 		=> n.image,
+					:discipline => n.discipline
+				}}
 		}
 	end
 
